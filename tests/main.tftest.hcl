@@ -32,12 +32,14 @@ run "setup_virtual_network" {
     }
 }
 
-
 run "should_not_accept_arbitrary_environment" {
+    command = plan
+    
     variables {
         environment                  = "staging"
         azure_resource_group         = run.setup_resource_group.resource_group
         azure_virtual_network_subnet = run.setup_virtual_network.subnets[0]
+        node_resource_group_name     = "rg-aks-resources-${var.name_suffix}" 
     }
 
     expect_failures = [
