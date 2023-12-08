@@ -58,7 +58,7 @@ run "production_cluster_should_start_with_three_nodes" {
     }
 
     assert {
-        condition     = azurerm_kubernetes_cluster.this.default_node_pool.node_count == 3
+        condition     = azurerm_kubernetes_cluster.this.default_node_pool[0].node_count == 3
         error_message = "Wrong number of initial nodes created for prod cluster"
     }
 }
