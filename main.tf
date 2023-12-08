@@ -37,6 +37,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     network_plugin_mode = "overlay"
     pod_cidr            = "192.168.0.0/16"
     service_cidr        = "172.16.128.0/13"
+    dns_service_ip      = "172.16.128.10"
     outbound_type       = "loadBalancer"
   }
 
