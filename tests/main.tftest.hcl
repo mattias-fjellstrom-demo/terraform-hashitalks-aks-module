@@ -104,7 +104,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(run.setup_cluster.kube_config.cluster_ca_certificate)
 }
 
-run "kubernetes_api_should_respond" {
+run "kubernetes_api_should_be_reachable" {
   variables {
     host                   = run.setup_cluster.kube_config.host
     cluster_ca_certificate = base64decode(run.setup_cluster.kube_config.cluster_ca_certificate)
