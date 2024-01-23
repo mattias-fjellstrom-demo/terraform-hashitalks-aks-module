@@ -1,4 +1,5 @@
 locals {
+  // environment specific settings
   environment = {
     dev = {
       node_count = 1
@@ -10,25 +11,24 @@ locals {
     }
   }
 
-  node_count = local.environment[var.environment].node_count
-  vm_size    = local.environment[var.environment].vm_size
-
-  node_resource_group_name = var.node_resource_group_name == null ? "rg-azure-infra-${var.name_suffix}" : var.node_resource_group_name
+  node_count               = local.environment[var.environment].node_count
+  vm_size                  = local.environment[var.environment].vm_size
+  node_resource_group_name = var.node_resource_group_name == null ? "rg-aks-infra-${var.name_suffix}" : var.node_resource_group_name
 }
 
 resource "azurerm_kubernetes_cluster" "this" {
   name                 = "aks-${var.name_suffix}"
-  resource_group_name  = var.azure_resource_group.name
-  location             = var.azure_resource_group.location
-  dns_prefix           = "aks${var.name_suffix}"
+  resource_group_name  = var.resource_group.name
+  location             = var.resource_group.location
+  dns_prefix           = "aks-${var.name_suffix}"
   node_resource_group  = local.node_resource_group_name
-  azure_policy_enabled = true
+  azure_policy_enabled = false
 
   default_node_pool {
     name           = "default"
     node_count     = local.node_count
     vm_size        = local.vm_size
-    vnet_subnet_id = var.azure_virtual_network_subnet.id
+    vnet_subnet_id = var.subnet.id
   }
 
   network_profile {
@@ -39,6 +39,10 @@ resource "azurerm_kubernetes_cluster" "this" {
     service_cidr        = "172.16.0.0/16"
     dns_service_ip      = "172.16.0.10"
     outbound_type       = "loadBalancer"
+  }
+
+  web_app_routing {
+    dns_zone_id = data.azurerm_dns_zone.mattiasfjellstromcom.id
   }
 
   identity {

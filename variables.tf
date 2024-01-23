@@ -12,15 +12,16 @@ variable "name_suffix" {
   description = "Name suffix for resource naming"
 }
 
-variable "azure_resource_group" {
+variable "resource_group" {
   type = object({
     name     = string
     location = string
+    tags     = map(string)
   })
   description = "Azure resource group for the AKS cluster"
 }
 
-variable "azure_virtual_network_subnet" {
+variable "subnet" {
   type = object({
     id = string
   })
@@ -31,4 +32,5 @@ variable "node_resource_group_name" {
   type        = string
   nullable    = true
   description = "AKS infrastructure resource group (for load balancer etc)"
+  default     = null
 }
