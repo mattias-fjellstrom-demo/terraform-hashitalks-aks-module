@@ -98,16 +98,16 @@ run "setup_cluster" {
 }
 
 provider "kubernetes" {
-  host                   = run.setup_cluster.host
-  client_certificate     = base64decode(run.setup_cluster.client_certificate)
-  client_key             = base64decode(run.setup_cluster.client_key)
-  cluster_ca_certificate = base64decode(run.setup_cluster.cluster_ca_certificate)
+  host                   = run.setup_cluster.kube_config.host
+  client_certificate     = base64decode(run.setup_cluster.kube_config.client_certificate)
+  client_key             = base64decode(run.setup_cluster.kube_config.client_key)
+  cluster_ca_certificate = base64decode(run.setup_cluster.kube_config.cluster_ca_certificate)
 }
 
 run "kubernetes_api_should_respond" {
   variables {
-    host                   = run.setup_cluster.host
-    cluster_ca_certificate = base64decode(run.setup_cluster.cluster_ca_certificate)
+    host                   = run.setup_cluster.kube_config.host
+    cluster_ca_certificate = base64decode(run.setup_cluster.kube_config.cluster_ca_certificate)
   }
 
   providers = {
