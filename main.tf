@@ -6,7 +6,7 @@ locals {
       vm_size    = "Standard_D2_v2"
     }
     prod = {
-      node_count = 3
+      node_count = 2
       vm_size    = "Standard_D2_v2"
     }
   }
