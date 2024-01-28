@@ -12,6 +12,11 @@ variables {
   environment = "dev"
   name_suffix = "hashitalks-cluster"
   location    = "swedencentral"
+  tags = {
+    team        = "HashiTalks Team"
+    project     = "HashiTalks Project"
+    cost_center = "3214"
+  }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -21,11 +26,6 @@ run "setup_resource_group" {
   module {
     source  = "app.terraform.io/mattias-fjellstrom/resource-group-module/hashitalks"
     version = "1.0.1"
-    tags = {
-      team        = "HashiTalks Team"
-      project     = "HashiTalks Project"
-      cost_center = "3214"
-    }
   }
 }
 
