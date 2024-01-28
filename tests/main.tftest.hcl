@@ -20,7 +20,7 @@ variables {
 run "setup_resource_group" {
   module {
     source  = "app.terraform.io/mattias-fjellstrom/resource-group-module/hashitalks"
-    version = "1.0.0"
+    version = "1.0.1"
   }
 }
 
@@ -38,7 +38,7 @@ run "setup_virtual_network" {
 
   module {
     source  = "app.terraform.io/mattias-fjellstrom/network-module/hashitalks"
-    version = "1.0.0"
+    version = "2.1.0"
   }
 }
 
