@@ -41,10 +41,6 @@ resource "azurerm_kubernetes_cluster" "this" {
     outbound_type       = "loadBalancer"
   }
 
-  web_app_routing {
-    dns_zone_id = data.azurerm_dns_zone.mattiasfjellstromcom.id
-  }
-
   identity {
     type = "SystemAssigned"
   }
